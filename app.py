@@ -15,8 +15,7 @@ def index():
 
 
 ws_list = set()
-#coordinates = 
-messages_list = []
+location_list = []
 
 @app.route('/pipe')
 def pipe():
@@ -26,26 +25,26 @@ def pipe():
         while True:
             print("loop start")
             time.sleep(1)
-            message = ws.receive()
-            if message is None:
+            loc_string = ws.receive()
+            if loc_string is None:
                 break
-            datetime_now = datetime.datetime.now()
-            data = {
-                'time': str(datetime_now),
-                'message': message
-            }
-            messages_list.append(data)
+            loc = json.loads(loc_string)
+            print(loc)
+            location_list.append(loc)
             remove_list = set()
+            # 持ってるwsインスタンス全部にとりあえず送ってみる
             for s in ws_list:
-                try:
-                    s.send(json.dumps(data))
-                except Exception:
-                    print("多分消えた")
-                    remove_list.add(s)
-                    return "",200
+                s.send(json.dumps(location_list))
+                #try:
+                #    s.send(json.dumps(data))
+                #except Exception:
+                #    print("多分消えた")
+                #    remove_list.add(s)
+                #    return "",200
+            # ないやつは後でまとめて消すよ
             for s in remove_list:
                 ws_list.remove(s)
-            print(messages_list)
+            print(location_list)
         ws_list.remove(ws)
     return "",200
  
