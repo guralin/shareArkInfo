@@ -1,0 +1,23 @@
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Document</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="static/css/layer.css">
+    </head>
+    <body>
+        <h1>websocket chat</h1>
+
+        <input type="text" id="msg" value="> message"/>
+        <button id="sendBtn">send</button>
+        <ul id="rcv"></ul>
+        <div id="stage">
+            <canvas id='background-layer' width='1024' height='1024'></canvas>
+            <canvas id='marking-layer' width='1024' height='1024'></canvas>
+        </div>
+
+        <script src="static/js/websocket.js"></script>
+        <script src="static/js/canvas.js"></script>
+    </body>
+
+</html>
